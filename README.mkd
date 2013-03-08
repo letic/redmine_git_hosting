@@ -127,15 +127,6 @@ root directory:
     rm -rf redmine_git_hosting/.git
     cd ../..
 
-
-**(6)** It is best to set several plugin variables BEFORE you run the db:migrate\_plugins task in step (7).  In particular it is important 
-that the **gitScriptDir**, **gitUser**, **httpServer**,  **gitServer**, **gitoliteIdentityFile** and **gitoliteIdentityPublicKeyFile**
-variables are set correctly.  Others that could be set include **gitConfigFile**, **gitConfigHasAdminKey**, **gitRepositoryBasePath**, 
-**gitRedmineSubdir**, **gitRepositoryHierarchy**, and **gitRepositoryIdentUnique** (for Redmine 1.4+); however, the default values for these variables should be sufficient for most installations.
-
-To perform initial adjustment of settings, open an editor and edit 'REDMINE_ROOT/vendor/plugins/redmine_git_hosting/init.rb' file. 
-Starting on line 17, you will see the settings definitions you should edit.
-
 * The **gitSciptDir** variable indicates which directory will hold customized scripts.  When *relative*, this variable indicates a directory relative to the 
 root of the plugin.  The default value of ' ' (empty), means that scripts will be written to 'REDMINE_ROOT/vendor/plugins/redmine_git_hosting/bin'.  *This 
 default location should be sufficient for most installations.*  
@@ -197,14 +188,14 @@ have paths of the form repository/projects/project-1/project-2/project-3/repo-1.
 (Administration => Plugins => Redmine Git Hosting Plugin configuration page) provides information about how your chosen configuration affects the storage locations and 
 URLs for accessing projects. 
 
-**(7)** Run the rake db:migrate\_plugins task to update the database.  You will need to do this once for every
+**(6)** Run the rake db:migrate\_plugins task to update the database.  You will need to do this once for every
 rails environment you have configured (e.g. production, development, testing).  For the production environment, run the following:
 
-    rake db:migrate_plugins RAILS_ENV=production
+    RAILS_ENV=production rake db:migrate_plugins
 
 *Note that you should perform a migrate\_plugins operation whenever you update the plugin.*
 
-**(8)** Make a decision about whether or not you want the plugin to be able to modify scripts in the scripts directory on the fly.  If you elect to prevent 
+**(7)** Make a decision about whether or not you want the plugin to be able to modify scripts in the scripts directory on the fly.  If you elect to prevent 
 the plugin from modifying the scripts directory, you will be unable to modify certain settings from the plugin settings page (as discussed in 
 the "Executable Scripts" section, below). You have three options:
 
@@ -239,14 +230,14 @@ discovery process *should* work properly.  Not all systems will "do the right th
 
 *Note that you should reinstall scripts whenever you update the plugin.*
 
-**(9)** Unless you want to access your repositories exclusively via Smart HTTP users will need to set a 
+**(8)** Unless you want to access your repositories exclusively via Smart HTTP users will need to set a 
 public key to connect via SSH.  To do this, open a browser, login to ChiliProject/Redmine and follow the "My Account" Link
 in the upper right-hand corner of the page.  The right-hand column contains controls for adding your public key(s).  
 
 Keys should be unique, that is, the keys you set in ChiliProject / Redmine should not already exist in the gitolite repo.  In particular,
 do not re-use the key you set as the gitolite admin key.
 
-**(10)** The plugin is now configured, but you may now want to set some additional settings on the 
+**(9)** The plugin is now configured, but you may now want to set some additional settings on the 
 Administration => Plugins => Redmine Git Hosting Plugin page.  
 
 * The **Lock Wait Time** represents the amount of time that the plugin will wait in attempting to acquire its internal synchronization lock before giving 
