@@ -17,7 +17,7 @@ class CreateDeploymentCredentials < ActiveRecord::Migration
 
       GitHostingObserver.set_update_active(false)
 
-      manager_role   = Role.find_by_name(I18n.t(:default_role_manager))
+      manager_role = Role.find_by_name(I18n.t(:default_role_manager))
       manager_role.add_permission! :view_deployment_keys
       manager_role.add_permission! :edit_deployment_keys
       manager_role.add_permission! :create_deployment_keys
@@ -38,7 +38,7 @@ class CreateDeploymentCredentials < ActiveRecord::Migration
       remove_column :gitolite_public_keys, :delete_when_unused
 
       GitHostingObserver.set_update_active(false)
-      manager_role   = Role.find_by_name(I18n.t(:default_role_manager))
+      manager_role = Role.find_by_name(I18n.t(:default_role_manager))
       manager_role.remove_permission! :view_deployment_keys
       manager_role.remove_permission! :edit_deployment_keys
       manager_role.remove_permission! :create_deployment_keys
