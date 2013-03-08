@@ -8,7 +8,7 @@
 <%= error_messages_for 'user' %>
 
 <div class="splitcontentleft">
-  <%= labelled_form_for :user, @user,
+  <% form = labelled_form_for :user, @user,
                :url => { :action => "account" },
                :html => { :id => 'my_account_form', :method => :post } do |f| %>
 
@@ -39,6 +39,7 @@
     </fieldset>
 
   <% end %>
+  <%= form if Rails::VERSION::MAJOR >= 3 %>
 </div>
 
 <div class="splitcontentright">

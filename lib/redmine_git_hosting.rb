@@ -3,8 +3,10 @@ require 'dispatcher' unless Rails::VERSION::MAJOR >= 3
 
 def git_hosting_patch(&block)
   if Rails::VERSION::MAJOR >= 3
+    puts "## GIT HOSTING RAILS 3 DETECTED, INJECT PATCHES"
     ActionDispatch::Callbacks.to_prepare(&block)
   else
+    puts "## GIT HOSTING RAILS 2 DETECTED, INJECT PATCHES"
     Dispatcher.to_prepare(:redmine_git_patches,&block)
   end
 end
