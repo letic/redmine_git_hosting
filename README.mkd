@@ -1,4 +1,4 @@
-# Redmine Git Hosting Plugin (v0.5.1x)
+# Redmine Git Hosting Plugin (v0.6)
 
 A ChiliProject / Redmine plugin which makes configuring your own git hosting easy. This plugin allows straightforward management
 of gitolite and associated public keys, the git daemon, and integrates code from Scott Schacon's "grack" utility
@@ -6,20 +6,17 @@ to provide Git Smart HTTP access.  Git repositories are automatically created wh
 Redmine.  There is also an option to automatically create a git repository for a project, when the project is created.
 Caching functionality is also implemented to speed page-load times for viewing git repositories.
 
-Release Notes are available off the wiki: https://github.com/kubitron/redmine_git_hosting/wiki/Release-Notes.
+Release Notes are available off the wiki: https://github.com/jbox-web/redmine_git_hosting/wiki/Release-Notes.
 
 ## Compatibility
 
-The current version of this plugin is not compatible with all versions of Redmine and ChiliProject.  As of this writing, it
-should be compatible with the following versions:
+As of this writing, it should be compatible with the following versions:
 
-* **Redmine:** This plugin should work with Redmine branches 1.1-Stable through 1.4-Stable (including sub-versions).  **It does not currently work with
-the Redmine trunk or Redmine version 2.x, since the plugin is not currently compatible with Rails 3.x.**
+* **Redmine:** This plugin should work with Redmine branches 1.1-Stable through 2.3.3 (including sub-versions).
 
 * **ChiliProject:** This plugin should work with ChiliProject 2.0.0 through 3.3.x. It has been successfully used with at least 2.0.x, 2.5.x, 2.7.x, and 3.0.x, and 3.3.x releases, however some problems have been occasionally reported with newer versions of ChiliProject.  These incompatibilities will get fixed when possible. 
 
-This plugin is compatible with most versions of gitolite with versions < 3.x.  *This plugin is currently not fully functional with 3.x versions of gitolite, so it is best to avoid them for now.*  Gitolite 
-versions >= 2.0.3 provide slightly better resilience to recover from configuration problems that prevent administrative access (the plugin will exploit **gl-admin-push** to fix the access key).
+This plugin is compatible with most versions of Gitolite including versions 3.x.
 
 ## Configuration Strategy
 
