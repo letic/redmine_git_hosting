@@ -58,4 +58,8 @@ git_hosting_patch do
   # Put git_adapter_patch last (make sure that git_cmd stays patched!)
   require_dependency 'git_hosting/patches/git_repository_patch'
   require_dependency 'git_hosting/patches/git_adapter_patch'
+
+  ## Redmine Git Hosting Hooks
+  require_dependency 'git_hosting/hooks/git_project_show_hook'
+  require_dependency 'git_hosting/hooks/git_repo_url_hook'
 end

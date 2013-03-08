@@ -80,7 +80,7 @@ if Rails::VERSION::MAJOR >= 3
   end
 else
   config.after_initialize do
-    if config.action_controller.perform_caching && !migrating_primary
+    if !migrating_primary
 
       ActiveRecord::Base.observers = ActiveRecord::Base.observers << GitHostingObserver
       ActiveRecord::Base.observers = ActiveRecord::Base.observers << GitHostingSettingsObserver
@@ -95,13 +95,4 @@ else
 
     end
   end
-end
-
-# initialize hooks
-class GitProjectShowHook < Redmine::Hook::ViewListener
-  render_on :view_projects_show_left, :partial => 'git_urls'
-end
-
-class GitRepoUrlHook < Redmine::Hook::ViewListener
-  render_on :view_repositories_show_contextual, :partial => 'git_urls'
 end

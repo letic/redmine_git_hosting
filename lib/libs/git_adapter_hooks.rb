@@ -103,13 +103,13 @@ module GitHosting
           GitHosting.shell %[#{GitHosting.git_exec} config --global hooks.redmine_gitolite.url "#{@@hook_url}"]
         end
 
-        debug_hook = GitHostingConf.git_hooks_debug
+        debug_hook = GitHostingConf.git_hooks_debug?
         if cur_values["hooks.redmine_gitolite.debug"] != debug_hook
           logger.warn "[GitHosting] Updating Debug Hook: #{debug_hook}"
           GitHosting.shell %[#{GitHosting.git_exec} config --global --bool hooks.redmine_gitolite.debug "#{debug_hook}"]
         end
 
-        asynch_hook = GitHostingConf.git_hooks_are_asynchronous
+        asynch_hook = GitHostingConf.git_hooks_are_asynchronous?
         if cur_values["hooks.redmine_gitolite.asynch"] != asynch_hook
           logger.warn "[GitHosting] Updating Hooks Are Asynchronous: #{asynch_hook}"
           GitHosting.shell %[#{GitHosting.git_exec} config --global --bool hooks.redmine_gitolite.asynch "#{asynch_hook}"]
