@@ -8,5 +8,6 @@
 
   <%= render :partial => 'form', :locals => { :f => f } %>
   <%= submit_tag l(:button_save) %>
+  <%= link_to l(:button_cancel), settings_project_path(@project, :tab => 'repositories') %>
 <% end %>
 <%= form if Rails::VERSION::MAJOR >= 3 %>
