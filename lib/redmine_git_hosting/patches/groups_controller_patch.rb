@@ -1,4 +1,4 @@
-module GitHosting
+module RedmineGitHosting
   module Patches
     module GroupsControllerPatch
       unloadable
@@ -25,6 +25,6 @@ module GitHosting
   end
 end
 
-unless GroupsController.included_modules.include?(GitHosting::Patches::GroupsControllerPatch)
-  GroupsController.send(:include, GitHosting::Patches::GroupsControllerPatch)
+unless GroupsController.included_modules.include?(RedmineGitHosting::Patches::GroupsControllerPatch)
+  GroupsController.send(:include, RedmineGitHosting::Patches::GroupsControllerPatch)
 end

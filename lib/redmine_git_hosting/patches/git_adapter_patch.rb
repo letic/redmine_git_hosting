@@ -1,4 +1,4 @@
-module GitHosting
+module RedmineGitHosting
   module Patches
     module GitAdapterPatch
       unloadable
@@ -96,6 +96,6 @@ module GitHosting
   end
 end
 
-unless Redmine::Scm::Adapters::GitAdapter.included_modules.include?(GitHosting::Patches::GitAdapterPatch)
-  Redmine::Scm::Adapters::GitAdapter.send(:include, GitHosting::Patches::GitAdapterPatch)
+unless Redmine::Scm::Adapters::GitAdapter.included_modules.include?(RedmineGitHosting::Patches::GitAdapterPatch)
+  Redmine::Scm::Adapters::GitAdapter.send(:include, RedmineGitHosting::Patches::GitAdapterPatch)
 end

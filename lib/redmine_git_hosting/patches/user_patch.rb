@@ -1,4 +1,4 @@
-module GitHosting
+module RedmineGitHosting
   module Patches
     module UserPatch
       unloadable
@@ -14,6 +14,6 @@ module GitHosting
   end
 end
 
-unless User.included_modules.include?(GitHosting::Patches::UserPatch)
-  User.send(:include, GitHosting::Patches::UserPatch)
+unless User.included_modules.include?(RedmineGitHosting::Patches::UserPatch)
+  User.send(:include, RedmineGitHosting::Patches::UserPatch)
 end

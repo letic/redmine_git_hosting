@@ -1,4 +1,4 @@
-module GitHosting
+module RedmineGitHosting
   module Patches
     module ProjectsControllerPatch
       unloadable
@@ -138,6 +138,6 @@ module GitHosting
   end
 end
 
-unless ProjectsController.included_modules.include?(GitHosting::Patches::ProjectsControllerPatch)
-  ProjectsController.send(:include, GitHosting::Patches::ProjectsControllerPatch)
+unless ProjectsController.included_modules.include?(RedmineGitHosting::Patches::ProjectsControllerPatch)
+  ProjectsController.send(:include, RedmineGitHosting::Patches::ProjectsControllerPatch)
 end

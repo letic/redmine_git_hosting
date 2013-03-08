@@ -1,4 +1,4 @@
-module GitHosting
+module RedmineGitHosting
   module Patches
     module SysControllerPatch
       unloadable
@@ -25,6 +25,6 @@ module GitHosting
   end
 end
 
-unless SysController.included_modules.include?(GitHosting::Patches::SysControllerPatch)
-  SysController.send(:include, GitHosting::Patches::SysControllerPatch)
+unless SysController.included_modules.include?(RedmineGitHosting::Patches::SysControllerPatch)
+  SysController.send(:include, RedmineGitHosting::Patches::SysControllerPatch)
 end

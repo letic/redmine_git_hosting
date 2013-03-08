@@ -1,4 +1,4 @@
-module GitHosting
+module RedmineGitHosting
   module Patches
     module UsersControllerPatch
       unloadable
@@ -108,6 +108,6 @@ module GitHosting
   end
 end
 
-unless UsersController.included_modules.include?(GitHosting::Patches::UsersControllerPatch)
-  UsersController.send(:include, GitHosting::Patches::UsersControllerPatch)
+unless UsersController.included_modules.include?(RedmineGitHosting::Patches::UsersControllerPatch)
+  UsersController.send(:include, RedmineGitHosting::Patches::UsersControllerPatch)
 end

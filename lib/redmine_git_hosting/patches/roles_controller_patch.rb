@@ -1,4 +1,4 @@
-module GitHosting
+module RedmineGitHosting
   module Patches
     module RolesControllerPatch
       unloadable
@@ -90,6 +90,6 @@ module GitHosting
   end
 end
 
-unless RolesController.included_modules.include?(GitHosting::Patches::RolesControllerPatch)
-  RolesController.send(:include, GitHosting::Patches::RolesControllerPatch)
+unless RolesController.included_modules.include?(RedmineGitHosting::Patches::RolesControllerPatch)
+  RolesController.send(:include, RedmineGitHosting::Patches::RolesControllerPatch)
 end

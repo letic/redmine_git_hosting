@@ -1,17 +1,15 @@
 # Set up autoload of patches
 require 'dispatcher' unless Rails::VERSION::MAJOR >= 3
 
-def git_hosting_patch(&block)
+def apply_patch(&block)
   if Rails::VERSION::MAJOR >= 3
-    puts "## GIT HOSTING RAILS 3 DETECTED, INJECT PATCHES"
     ActionDispatch::Callbacks.to_prepare(&block)
   else
-    puts "## GIT HOSTING RAILS 2 DETECTED, INJECT PATCHES"
-    Dispatcher.to_prepare(:redmine_git_patches,&block)
+    Dispatcher.to_prepare(:redmine_git_hosting_patches, &block)
   end
 end
 
-git_hosting_patch do
+apply_patch do
   ## Redmine dependencies
   # require project first!
   require_dependency 'project'
@@ -39,29 +37,29 @@ git_hosting_patch do
   require_dependency 'redmine/scm/adapters/git_adapter'
 
   ## Redmine Git Hosting Patches
-  require_dependency 'git_hosting/patches/project_patch'
-  require_dependency 'git_hosting/patches/projects_controller_patch'
+  require_dependency 'redmine_git_hosting/patches/project_patch'
+  require_dependency 'redmine_git_hosting/patches/projects_controller_patch'
 
-  require_dependency 'git_hosting/patches/repository_patch'
-  require_dependency 'git_hosting/patches/repositories_controller_patch'
-  require_dependency 'git_hosting/patches/repository_cia_filters'
+  require_dependency 'redmine_git_hosting/patches/repository_patch'
+  require_dependency 'redmine_git_hosting/patches/repositories_controller_patch'
+  require_dependency 'redmine_git_hosting/patches/repository_cia_filters'
 
-  require_dependency 'git_hosting/patches/user_patch'
-  require_dependency 'git_hosting/patches/users_controller_patch'
+  require_dependency 'redmine_git_hosting/patches/user_patch'
+  require_dependency 'redmine_git_hosting/patches/users_controller_patch'
 
-  require_dependency 'git_hosting/patches/groups_controller_patch'
-  require_dependency 'git_hosting/patches/members_controller_patch'
-  require_dependency 'git_hosting/patches/my_controller_patch'
-  require_dependency 'git_hosting/patches/roles_controller_patch'
+  require_dependency 'redmine_git_hosting/patches/groups_controller_patch'
+  require_dependency 'redmine_git_hosting/patches/members_controller_patch'
+  require_dependency 'redmine_git_hosting/patches/my_controller_patch'
+  require_dependency 'redmine_git_hosting/patches/roles_controller_patch'
 
-  require_dependency 'git_hosting/patches/settings_controller_patch'
-  require_dependency 'git_hosting/patches/sys_controller_patch'
+  require_dependency 'redmine_git_hosting/patches/settings_controller_patch'
+  require_dependency 'redmine_git_hosting/patches/sys_controller_patch'
 
   # Put git_adapter_patch last (make sure that git_cmd stays patched!)
-  require_dependency 'git_hosting/patches/git_repository_patch'
-  require_dependency 'git_hosting/patches/git_adapter_patch'
+  require_dependency 'redmine_git_hosting/patches/git_repository_patch'
+  require_dependency 'redmine_git_hosting/patches/git_adapter_patch'
 
   ## Redmine Git Hosting Hooks
-  require_dependency 'git_hosting/hooks/git_project_show_hook'
-  require_dependency 'git_hosting/hooks/git_repo_url_hook'
+  require_dependency 'redmine_git_hosting/hooks/git_project_show_hook'
+  require_dependency 'redmine_git_hosting/hooks/git_repo_url_hook'
 end

@@ -1,4 +1,4 @@
-module GitHosting
+module RedmineGitHosting
   module Patches
     module MyControllerPatch
       unloadable
@@ -34,6 +34,6 @@ module GitHosting
   end
 end
 
-unless MyController.included_modules.include?(GitHosting::Patches::MyControllerPatch)
-  MyController.send(:include, GitHosting::Patches::MyControllerPatch)
+unless MyController.included_modules.include?(RedmineGitHosting::Patches::MyControllerPatch)
+  MyController.send(:include, RedmineGitHosting::Patches::MyControllerPatch)
 end

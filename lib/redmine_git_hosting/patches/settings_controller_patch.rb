@@ -1,4 +1,4 @@
-module GitHosting
+module RedmineGitHosting
   module Patches
     module SettingsControllerPatch
       unloadable
@@ -14,6 +14,6 @@ module GitHosting
   end
 end
 
-unless SettingsController.included_modules.include?(GitHosting::Patches::SettingsControllerPatch)
-  SettingsController.send(:include, GitHosting::Patches::SettingsControllerPatch)
+unless SettingsController.included_modules.include?(RedmineGitHosting::Patches::SettingsControllerPatch)
+  SettingsController.send(:include, RedmineGitHosting::Patches::SettingsControllerPatch)
 end
