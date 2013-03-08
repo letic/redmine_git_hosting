@@ -17,7 +17,34 @@ module GitHostingConf
   REPO_IDENT_UNIQUE             = true
   GITOLITE_CONFIG_FILE          = 'gitolite.conf'
   GITOLITE_CONFIG_HAS_ADMIN_KEY = true
+  DELETE_GIT_REPOSITORIES       = false
+  GIT_FORCE_HOOK_UPDATE         = true
+  GIT_HOOKS_DEBUG               = false
+  GIT_HOOKS_ARE_ASYNCHRONOUS    = true
+  GIT_CACHE_MAX_TIME            = '-1'
+  GIT_CACHE_MAX_SIZE            = '16'
+  GIT_CACHE_MAX_ELEMENTS        = '100'
+  RECYCLE_BIN_IF_UNDEF          = 'recycle_bin/'
+  PRESERVE_TIME_IF_UNDEF        = 1440
 
+
+  # Recycle bin base path (relative to git user home directory)
+  def self.recycle_bin
+    if !Setting.plugin_redmine_git_hosting.nil? and !Setting.plugin_redmine_git_hosting['gitRecycleBasePath'].nil?
+      Setting.plugin_redmine_git_hosting['gitRecycleBasePath']
+    else
+      RECYCLE_BIN_IF_UNDEF
+    end
+  end
+
+  # Recycle preservation time (in minutes)
+  def self.preserve_time
+    if !Setting.plugin_redmine_git_hosting.nil? and !Setting.plugin_redmine_git_hosting['gitRecycleExpireTime'].nil?
+      (Setting.plugin_redmine_git_hosting['gitRecycleExpireTime'].to_f * 60).to_i
+    else
+      PRESERVE_TIME_IF_UNDEF
+    end
+  end
 
   # Time in seconds to wait before giving up on acquiring the lock
   def self.lock_wait_time
@@ -179,5 +206,76 @@ module GitHostingConf
     end
   end
 
-end
+  def self.delete_git_repositories?
+    if !Setting.plugin_redmine_git_hosting.nil? and !Setting.plugin_redmine_git_hosting['deleteGitRepositories'].nil?
+      if Setting.plugin_redmine_git_hosting['deleteGitRepositories'] == 'true'
+        return true
+      else
+        return false
+      end
+    else
+      DELETE_GIT_REPOSITORIES
+    end
+  end
 
+  def self.git_hooks_are_asynchronous?
+    if !Setting.plugin_redmine_git_hosting.nil? and !Setting.plugin_redmine_git_hosting['gitHooksAreAsynchronous'].nil?
+      if Setting.plugin_redmine_git_hosting['gitHooksAreAsynchronous'] == 'true'
+        return true
+      else
+        return false
+      end
+    else
+      GIT_HOOKS_ARE_ASYNCHRONOUS
+    end
+  end
+
+  def self.git_force_hooks_update?
+    if !Setting.plugin_redmine_git_hosting.nil? and !Setting.plugin_redmine_git_hosting['gitForceHooksUpdate'].nil?
+      if Setting.plugin_redmine_git_hosting['gitForceHooksUpdate'] == 'true'
+        return true
+      else
+        return false
+      end
+    else
+      GIT_FORCE_HOOK_UPDATE
+    end
+  end
+
+  def self.git_hooks_debug?
+    if !Setting.plugin_redmine_git_hosting.nil? and !Setting.plugin_redmine_git_hosting['gitHooksDebug'].nil?
+      if Setting.plugin_redmine_git_hosting['gitHooksDebug'] == 'true'
+        return true
+      else
+        return false
+      end
+    else
+      GIT_HOOKS_DEBUG
+    end
+  end
+
+  def self.git_cache_max_time
+    if !Setting.plugin_redmine_git_hosting.nil? and !Setting.plugin_redmine_git_hosting['gitCacheMaxTime'].nil?
+      Setting.plugin_redmine_git_hosting['gitCacheMaxTime']
+    else
+      GIT_CACHE_MAX_TIME
+    end
+  end
+
+  def self.git_cache_max_size
+    if !Setting.plugin_redmine_git_hosting.nil? and !Setting.plugin_redmine_git_hosting['gitCacheMaxSize'].nil?
+      Setting.plugin_redmine_git_hosting['gitCacheMaxSize']
+    else
+      GIT_CACHE_MAX_SIZE
+    end
+  end
+
+  def self.git_cache_max_elements
+    if !Setting.plugin_redmine_git_hosting.nil? and !Setting.plugin_redmine_git_hosting['gitCacheMaxElements'].nil?
+      Setting.plugin_redmine_git_hosting['gitCacheMaxElements']
+    else
+      GIT_CACHE_MAX_ELEMENTS
+    end
+  end
+
+end

@@ -313,12 +313,12 @@ module GitHosting
   def self.mirror_push_public_key
     if @@mirror_pubkey.nil?
 
-      %x[cat '#{Setting.plugin_redmine_git_hosting['gitoliteIdentityFile']}' | #{GitHosting.git_user_runner} 'cat > ~/.ssh/gitolite_admin_id_rsa ' ]
-      %x[cat '#{Setting.plugin_redmine_git_hosting['gitoliteIdentityPublicKeyFile']}' | #{GitHosting.git_user_runner} 'cat > ~/.ssh/gitolite_admin_id_rsa.pub ' ]
+      %x[cat '#{GitHostingConf.gitolite_ssh_private_key}' | #{GitHosting.git_user_runner} 'cat > ~/.ssh/gitolite_admin_id_rsa ' ]
+      %x[cat '#{GitHostingConf.gitolite_ssh_public_key}' | #{GitHosting.git_user_runner} 'cat > ~/.ssh/gitolite_admin_id_rsa.pub ' ]
       %x[ #{GitHosting.git_user_runner} 'chmod 600 ~/.ssh/gitolite_admin_id_rsa' ]
       %x[ #{GitHosting.git_user_runner} 'chmod 644 ~/.ssh/gitolite_admin_id_rsa.pub' ]
 
-      pubk =  ( %x[cat '#{Setting.plugin_redmine_git_hosting['gitoliteIdentityPublicKeyFile']}' ]  ).chomp.strip
+      pubk = ( %x[cat '#{GitHostingConf.gitolite_ssh_public_key}' ]  ).chomp.strip
       git_user_dir = ( %x[ #{GitHosting.git_user_runner} "cd ~ ; pwd" ] ).chomp.strip
       %x[ #{GitHosting.git_user_runner} 'echo "#{pubk}"  > ~/.ssh/gitolite_admin_id_rsa.pub ' ]
       %x[ echo '#!/bin/sh' | #{GitHosting.git_user_runner} 'cat > ~/.ssh/run_gitolite_admin_ssh']
@@ -619,7 +619,7 @@ module GitHosting
       conf = GitoliteConfig.new(tmp_conf_file)
 
       # copy key into home directory...
-      shell %[cat #{Setting.plugin_redmine_git_hosting['gitoliteIdentityPublicKeyFile']} | #{GitHosting.git_user_runner} 'cat > ~/id_rsa.pub']
+      shell %[cat #{GitoliteConfig.gitolite_ssh_public_key} | #{GitHosting.git_user_runner} 'cat > ~/id_rsa.pub']
 
       # Locate any keys that match redmine_git_hosting key
       raw_admin_key_matches = %x[#{GitHosting.git_user_runner} 'find #{keydir} -type f -exec cmp -s ~/id_rsa.pub {} \\; -print'].chomp.split("\n")
@@ -1087,7 +1087,7 @@ module GitHosting
 
           # Next, delete redmine keys for this repository
           conf.delete_redmine_keys repo_name
-          if (Setting.plugin_redmine_git_hosting['deleteGitRepositories'] == "true")
+          if GitHostingConf.delete_git_repositories?
             if conf.repo_has_no_keys? repo_name
               logger.warn "[GitHosting] Deleting #{orphanString}entry '#{repo_name}' from #{gitolite_conf}"
               conf.delete_repo repo_name

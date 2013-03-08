@@ -303,15 +303,15 @@ class CachedShellRedirector
   ###############################################
 
   def self.max_cache_time
-    (Setting.plugin_redmine_git_hosting['gitCacheMaxTime']).to_i          # in seconds, default = 60
+    GitHostingConf.git_cache_max_time.to_i          # in seconds, default = 60
   end
 
   def self.max_cache_elements
-    (Setting.plugin_redmine_git_hosting['gitCacheMaxElements']).to_i      # default = 100
+    GitHostingConf.git_cache_max_elements.to_i      # default = 100
   end
 
   def self.max_cache_size
-    (Setting.plugin_redmine_git_hosting['gitCacheMaxSize']).to_i*1024*1024   # In MB, default = 16MB, converted to bytes
+    GitHostingConf.git_cache_max_size.to_i*1024*1024   # In MB, default = 16MB, converted to bytes
   end
 
   def self.compose_key(key1,key2)
