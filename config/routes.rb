@@ -8,28 +8,28 @@ def install_redmine_git_hosting_routes_new
     end
 
     match 'my/account/public_key/:public_key_id', :to => 'my#account'
-    match 'users/:id/edit/public_key/:public_key_id', :to => 'users#edit', :via => {:method => [:get]}
+    match 'users/:id/edit/public_key/:public_key_id', :to => 'users#edit', :via => [:get]
 
     # Handle hooks and mirrors
     match 'githooks', :to => 'gitolite_hooks#stub'
     match 'githooks/test', :to => 'gitolite_hooks#test'
     match 'githooks/post-receive', :to => 'gitolite_hooks#post_receive'
 
-    match 'repositories/:repository_id/mirrors/new',        :to => 'repository_mirrors#create', :via => {:method => [:get, :post]}
+    match 'repositories/:repository_id/mirrors/new',        :to => 'repository_mirrors#create', :via => [:get, :post]
     match 'repositories/:repository_id/mirrors/edit/:id',   :to => 'repository_mirrors#edit'
     match 'repositories/:repository_id/mirrors/push/:id',   :to => 'repository_mirrors#push'
-    match 'repositories/:repository_id/mirrors/update/:id', :to => 'repository_mirrors#update', :via => {:method => :post}
-    match 'repositories/:repository_id/mirrors/delete/:id', :to => 'repository_mirrors#destroy', :via => {:method => [:get, :delete]}
+    match 'repositories/:repository_id/mirrors/update/:id', :to => 'repository_mirrors#update', :via => [:post]
+    match 'repositories/:repository_id/mirrors/delete/:id', :to => 'repository_mirrors#destroy', :via => [:get, :delete]
 
-    match 'repositories/:repository_id/post-receive-urls/new',        :to => 'repository_post_receive_urls#create', :via => {:method => [:get, :post]}
+    match 'repositories/:repository_id/post-receive-urls/new',        :to => 'repository_post_receive_urls#create', :via => [:get, :post]
     match 'repositories/:repository_id/post-receive-urls/edit/:id',   :to => 'repository_post_receive_urls#edit'
-    match 'repositories/:repository_id/post-receive-urls/update/:id', :to => 'repository_post_receive_urls#update', :via => {:method => :post}
-    match 'repositories/:repository_id/post-receive-urls/delete/:id', :to => 'repository_post_receive_urls#destroy', :via => {:method => [:get, :delete]}
+    match 'repositories/:repository_id/post-receive-urls/update/:id', :to => 'repository_post_receive_urls#update', :via => [:post]
+    match 'repositories/:repository_id/post-receive-urls/delete/:id', :to => 'repository_post_receive_urls#destroy', :via => [:get, :delete]
 
-    match 'repositories/:repository_id/deployment-credentials/new',        :to => 'deployment_credentials#create_with_key', :via => {:method => [:get, :post]}
+    match 'repositories/:repository_id/deployment-credentials/new',        :to => 'deployment_credentials#create_with_key', :via => [:get, :post]
     match 'repositories/:repository_id/deployment-credentials/edit/:id',   :to => 'deployment_credentials#edit'
-    match 'repositories/:repository_id/deployment-credentials/update/:id', :to => 'deployment_credentials#update', :via => {:method => :post}
-    match 'repositories/:repository_id/deployment-credentials/delete/:id', :to => 'deployment_credentials#destroy', :via => {:method => [:get, :delete]}
+    match 'repositories/:repository_id/deployment-credentials/update/:id', :to => 'deployment_credentials#update', :via => [:post]
+    match 'repositories/:repository_id/deployment-credentials/delete/:id', :to => 'deployment_credentials#destroy', :via => [:get, :delete]
   end
 end
 
