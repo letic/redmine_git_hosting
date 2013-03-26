@@ -18,6 +18,9 @@ As of this writing, it should be compatible with the following versions:
 
 This plugin is compatible with most versions of Gitolite including versions 3.x.
 
+* TESTED ON: 
+CENTOS 6.4 + GITOLITE v3.4 + 2.3.0.stable + NGINX (All Working)
+
 ## Configuration Strategy
 
 This plugin allows the web server/rails user to run git via sudo. To configure your sudoers file to allow your web server user to run commands as git, and your git user
